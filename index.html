@@ -1,0 +1,275 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Fortune Ojih — Portfolio</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #11141A;
+    --surface: #171B22;
+    --text: #EDE9DF;
+    --muted: #8D94A1;
+    --amber: #D5A456;
+    --teal: #4FA895;
+    --line: #262B34;
+    box-sizing: border-box;
+    padding-top: env(safe-area-inset-top, 0px);
+    padding-bottom: env(safe-area-inset-bottom, 0px);
+  }
+  @media (prefers-color-scheme: light) {
+    :root:not([data-theme="dark"]) {
+      --bg: #F7F5F0;
+      --surface: #FFFFFF;
+      --text: #1B1E24;
+      --muted: #6B7280;
+      --line: #E4E1D9;
+    }
+  }
+  :root[data-theme="dark"] {
+    --bg: #11141A; --surface: #171B22; --text: #EDE9DF; --muted: #8D94A1; --line: #262B34;
+  }
+  html { scroll-padding-top: env(safe-area-inset-top, 0px); }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'Inter', -apple-system, sans-serif;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3 { font-family: 'Space Grotesk', sans-serif; margin: 0; letter-spacing: -0.01em; }
+  .wrap { max-width: 760px; margin: 0 auto; padding: 0 24px; }
+  section { padding: 64px 0; border-bottom: 1px solid var(--line); }
+  section:last-of-type { border-bottom: none; }
+
+  /* Hero */
+  .hero { padding: 96px 0 64px; }
+  .hero h1 { font-size: clamp(2.2rem, 6vw, 3.4rem); font-weight: 700; }
+  .hero .role {
+    font-size: 1.05rem; color: var(--muted); margin-top: 14px; max-width: 46ch;
+  }
+  .hero .role b { color: var(--teal); font-weight: 600; }
+  .hero .role .amber { color: var(--amber); font-weight: 600; }
+  .stats { display: flex; gap: 32px; margin-top: 40px; flex-wrap: wrap; }
+  .stat .num { font-family: 'Space Grotesk', sans-serif; font-size: 1.7rem; font-weight: 600; }
+  .stat .label { font-size: 0.82rem; color: var(--muted); margin-top: 2px; }
+  .contact-row { margin-top: 36px; display: flex; gap: 20px; flex-wrap: wrap; font-size: 0.92rem; }
+  .contact-row a { color: var(--text); text-decoration: none; border-bottom: 1px solid var(--line); padding-bottom: 2px; }
+  .contact-row a:hover { border-color: var(--teal); }
+
+  /* Section headers */
+  .section-head { font-size: 0.78rem; color: var(--muted); font-weight: 500; margin-bottom: 28px; letter-spacing: 0.02em; }
+
+  /* About / tracks */
+  .tracks { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 28px; }
+  @media (max-width: 600px) { .tracks { grid-template-columns: 1fr; } }
+  .track {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 22px; border-top: 2px solid var(--track-color, var(--teal));
+  }
+  .track h3 { font-size: 1rem; margin-bottom: 8px; }
+  .track p { font-size: 0.9rem; color: var(--muted); margin: 0; }
+
+  /* Timeline */
+  .timeline { position: relative; margin-top: 10px; }
+  .tl-item { position: relative; padding-left: 28px; padding-bottom: 36px; border-left: 1px solid var(--line); }
+  .tl-item:last-child { padding-bottom: 0; border-left: 1px solid transparent; }
+  .tl-item::before {
+    content: ''; position: absolute; left: -5px; top: 4px; width: 9px; height: 9px;
+    border-radius: 50%; background: var(--dot-color, var(--teal)); border: 2px solid var(--bg);
+  }
+  .tl-item .role-title { font-size: 1.05rem; font-weight: 600; font-family: 'Space Grotesk', sans-serif; }
+  .tl-item .company { color: var(--muted); font-size: 0.88rem; margin-top: 2px; }
+  .tl-item .dates { color: var(--muted); font-size: 0.8rem; margin-top: 1px; }
+  .tl-item ul { margin: 14px 0 0; padding-left: 18px; font-size: 0.9rem; }
+  .tl-item li { margin-bottom: 7px; color: var(--text); }
+  .tl-item li::marker { color: var(--muted); }
+
+  /* Projects */
+  .projects { display: flex; flex-direction: column; gap: 14px; margin-top: 24px; }
+  .project {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 10px; padding: 20px 22px;
+    display: flex; justify-content: space-between; align-items: flex-start; gap: 16px; flex-wrap: wrap;
+  }
+  .project h3 { font-size: 1rem; }
+  .project p { font-size: 0.87rem; color: var(--muted); margin: 6px 0 10px; max-width: 48ch; }
+  .project .tech { font-size: 0.78rem; color: var(--teal); }
+  .project a {
+    color: var(--text); text-decoration: none; font-size: 0.85rem; white-space: nowrap;
+    border: 1px solid var(--line); padding: 7px 14px; border-radius: 7px; flex-shrink: 0;
+  }
+  .project a:hover { border-color: var(--teal); color: var(--teal); }
+
+  /* Skills */
+  .skill-group { margin-bottom: 20px; }
+  .skill-group:last-child { margin-bottom: 0; }
+  .skill-group .label { font-size: 0.8rem; color: var(--muted); margin-bottom: 9px; }
+  .tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag {
+    font-size: 0.82rem; padding: 5px 12px; border-radius: 6px; background: var(--surface);
+    border: 1px solid var(--line); color: var(--text);
+  }
+
+  /* Footer */
+  footer { padding: 48px 0 72px; text-align: left; }
+  footer p { color: var(--muted); font-size: 0.85rem; margin: 0; }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <section class="hero">
+    <h1>Fortune Ojih</h1>
+    <p class="role">
+      Three years operating where <b>backend engineering</b> meets <span class="amber">front-line customer trust</span> —
+      building the systems and holding the conversations that keep a platform's users confident in it.
+    </p>
+    <div class="stats">
+      <div class="stat"><div class="num">3+</div><div class="label">Years experience</div></div>
+      <div class="stat"><div class="num">10k+</div><div class="label">Users supported</div></div>
+      <div class="stat"><div class="num">$2M</div><div class="label">Incident, fully recovered</div></div>
+      <div class="stat"><div class="num">3</div><div class="label">Shipped backend projects</div></div>
+    </div>
+    <div class="contact-row">
+      <a href="mailto:fortuneojih@yahoo.com">fortuneojih@yahoo.com</a>
+      <a href="tel:+2348063116711">+234 806 311 6711</a>
+      <a href="https://linkedin.com/in/fortune_ojih" target="_blank" rel="noopener">LinkedIn</a>
+      <a href="https://github.com/fortz007" target="_blank" rel="noopener">GitHub</a>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">About</div>
+    <div class="tracks">
+      <div class="track" style="--track-color:#4FA895">
+        <h3 style="color:var(--teal)">Build</h3>
+        <p>Java, Spring Boot, and PostgreSQL — RESTful APIs, database-backed applications, refactoring for performance, and testing with JUnit/Mockito. Three shipped personal projects, linked below.</p>
+      </div>
+      <div class="track" style="--track-color:#D5A456">
+        <h3 style="color:var(--amber)">Support</h3>
+        <p>Led support and community operations for two DeFi platforms — built the infrastructure, trained the team, and held a user base together through a live $2M exploit, fully resolved.</p>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">Experience</div>
+    <div class="timeline">
+
+      <div class="tl-item" style="--dot-color:#D5A456">
+        <div class="role-title">Community Operations Lead</div>
+        <div class="company">Kinza Finance · Remote</div>
+        <div class="dates">2023 — Present</div>
+        <ul>
+          <li>Support 5,000–10,000+ users across Discord and Telegram, resolving account, transaction, and onboarding issues.</li>
+          <li>Built the platform's Discord infrastructure from scratch — channel architecture, permissions, anti-scam and verification workflows.</li>
+          <li>Recruited and trained a team of 1–3 moderators, establishing escalation SOPs.</li>
+          <li>Act as technical liaison, triaging protocol-level issues directly with engineering.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot-color:#D5A456">
+        <div class="role-title">Community Moderator</div>
+        <div class="company">Pike Finance · Remote</div>
+        <div class="dates">2024 — 2025</div>
+        <ul>
+          <li>Led front-line communication during a $2M protocol exploit — relaying verified updates and holding user trust as funds were traced and fully reimbursed.</li>
+          <li>Supported users on cross-chain lending, collateralization, and repayment mechanics.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot-color:#4FA895">
+        <div class="role-title">Java Backend Developer</div>
+        <div class="company">ImaliPay Technology Corporation</div>
+        <div class="dates">Aug 2024 — Dec 2024</div>
+        <ul>
+          <li>Designed and implemented backend features and RESTful APIs for a production web application.</li>
+          <li>Managed PostgreSQL databases and refactored the codebase for space/time efficiency.</li>
+          <li>Built PDF generation for payments and invoices using Jasper Report.</li>
+        </ul>
+      </div>
+
+      <div class="tl-item" style="--dot-color:#4FA895">
+        <div class="role-title">Backend Software Developer</div>
+        <div class="company">Decagon</div>
+        <div class="dates">Aug 2023 — Mar 2024</div>
+        <ul>
+          <li>Built RESTful services and data access layers using Java (OOP), Spring Boot, and SOLID principles.</li>
+          <li>Applied algorithms and data structures to deliver clean, efficient code; managed MySQL and PostgreSQL databases.</li>
+        </ul>
+      </div>
+
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">Projects</div>
+    <div class="projects">
+      <div class="project">
+        <div>
+          <h3>Activity Tracking Application</h3>
+          <p>Helps students with poor time management keep track of their planned activities.</p>
+          <div class="tech">Spring Boot · PostgreSQL · Spring Data JPA · JUnit/Mockito</div>
+        </div>
+        <a href="https://github.com/fortz007/activity-tracker" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="project">
+        <div>
+          <h3>Fashion Blog API</h3>
+          <p>Lets multiple bloggers post content and get reader responses as likes and comments.</p>
+          <div class="tech">Spring Boot · PostgreSQL · Spring Data JPA · JUnit/Mockito</div>
+        </div>
+        <a href="https://github.com/fortz007/fashion-blog-api" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+      <div class="project">
+        <div>
+          <h3>Oakland Furniture E-commerce</h3>
+          <p>Furniture storefront with full CRUD product operations and Paystack payment processing.</p>
+          <div class="tech">Spring Boot · Spring Security · PostgreSQL · Swagger</div>
+        </div>
+        <a href="https://github.com/fortz007/Oakland-furniture-store-application" target="_blank" rel="noopener">View on GitHub →</a>
+      </div>
+    </div>
+  </section>
+
+  <section>
+    <div class="section-head">Skills</div>
+    <div class="skill-group">
+      <div class="label">Languages &amp; Frameworks</div>
+      <div class="tags">
+        <span class="tag">Java</span><span class="tag">Spring Boot</span><span class="tag">Spring Security</span>
+        <span class="tag">Spring Data JPA</span><span class="tag">REST APIs</span><span class="tag">Servlets</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Databases &amp; Tools</div>
+      <div class="tags">
+        <span class="tag">PostgreSQL</span><span class="tag">MySQL</span><span class="tag">MongoDB</span>
+        <span class="tag">Git</span><span class="tag">Docker</span><span class="tag">Swagger</span><span class="tag">Postman</span>
+        <span class="tag">JUnit / Mockito</span><span class="tag">Jira</span><span class="tag">CI/CD</span>
+      </div>
+    </div>
+    <div class="skill-group">
+      <div class="label">Support &amp; Operations</div>
+      <div class="tags">
+        <span class="tag">Escalation Management</span><span class="tag">Incident Communication</span>
+        <span class="tag">Technical Troubleshooting</span><span class="tag">User Onboarding</span>
+        <span class="tag">Discord / Telegram Moderation</span><span class="tag">Cross-functional Collaboration</span>
+      </div>
+    </div>
+  </section>
+
+  <footer>
+    <p>Fortune Ojih — Lagos, Nigeria · Open to remote roles · fortuneojih@yahoo.com</p>
+  </footer>
+
+</div>
+
+</body>
+</html>
